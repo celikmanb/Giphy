@@ -25,5 +25,6 @@
         list-style:none;
         float: left;
         margin: 20px;
+
     }
 </style>
