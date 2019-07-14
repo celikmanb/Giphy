@@ -5,14 +5,14 @@
                 <div @mouseover="showClipboard(index)"
                      @mouseleave="closeClipboard"
                 >
-                    <VueLoadImage class="vue_load">
+                    <VueLoadImage class="vue_load" @onLoad="handleHover(index)">
                         <img class="loaded_image" slot="image"
                              :src="gif.images.fixed_height.url"
                              :class="{'hover_image':visible && selectedIndex === index}">
                         <img class="pre_image" slot="preloader" src="../assets/image-loader.gif"/>
                     </VueLoadImage>
 
-                    <div v-if="visible && selectedIndex === index" class="shared">
+                    <div v-if="visible && selectedIndex === index && loadedImage.includes(index)" class="shared">
                         <button v-clipboard="gif.images.fixed_height.url" class="copied">Copy</button>
                         <whats-app :url="gif.images.fixed_height.url"
                                    title="Gipyh image"
@@ -20,7 +20,6 @@
                         >
                         </whats-app>
                     </div>
-
                 </div>
 
 
@@ -35,7 +34,7 @@
 
     export default {
         name: "Preview",
-        props: [ 'gifs' ],
+        props: [ 'gifs', 'clearLoaded' ],
         components: {
             WhatsApp,
             VueLoadImage
@@ -44,10 +43,20 @@
             return {
                 visible: false,
                 selectedIndex: null,
-                hover: false
+                loadedImage:[]
+            }
+        },
+        watch: {
+            clearLoaded(value) {
+                if (value) {
+                    this.loadedImage = [];
+                }
             }
         },
         methods: {
+            handleHover(data) {
+               this.loadedImage.push(data);
+            },
             showClipboard(index) {
                 this.selectedIndex = index;
                 this.visible = true;
@@ -76,9 +85,6 @@
     .hover_image {
         opacity: 0.4;
     }
-    /*.shared:hover > .vue_load {
-        opacity: 0.4;
-    }*/
     .copied {
         width: 80px;
         height: 30px;
@@ -86,6 +92,7 @@
         color: white;
         background-color: #17a2b8;
         border: 1px solid transparent;
+        margin-right: 12px;
     }
     img {
         display: flex;
@@ -97,16 +104,6 @@
         align-items: center;
         top: 40%;
         right: 30%;
-
-        /*&:hover:has(> img.hover) {
-            opacity: 0.4;
-        }*/
-
-        /*&::after {
-            img:hover {
-                opacity: 0.4;
-            }
-        }*/
 
     }
 

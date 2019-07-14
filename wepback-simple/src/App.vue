@@ -1,8 +1,9 @@
 <template>
   <div id="app">
+    <h1>GIF Searcher</h1>
     <Search @SearchRequested="handleSearch"></Search>
     <p v-if="isLoading">Loading...</p>
-    <Preview :gifs="gifs"></Preview>
+    <Preview :gifs="gifs" :clearLoaded="isLoading"></Preview>
   </div>
 </template>
 
@@ -15,7 +16,7 @@ export default {
   data() {
     return {
       isLoading: true,
-      gifs: []
+      gifs: [],
     }
   },
   components: {
@@ -24,6 +25,7 @@ export default {
   },
   methods: {
     doQuery(url) {
+      this.isLoading = true;
       fetch(url)
               .then((res) => { return res.json() } )
               .then((res) => {
@@ -50,5 +52,13 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+h1 {
+  text-align: center;
+}
+p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
 }
 </style>
