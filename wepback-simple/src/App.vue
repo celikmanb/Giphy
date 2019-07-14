@@ -3,7 +3,7 @@
     <h1>GIF Searcher</h1>
     <Search @SearchRequested="handleSearch"></Search>
     <p v-if="isLoading">Loading...</p>
-    <Preview :gifs="gifs" :clearLoaded="isLoading"></Preview>
+    <Preview :gifs="gifs" ref="gifPreview"></Preview>
   </div>
 </template>
 
@@ -30,6 +30,7 @@ export default {
               .then((res) => { return res.json() } )
               .then((res) => {
                 this.gifs = res.data;
+                this.$refs.gifPreview.clearData();
                 this.isLoading = false;
               } )
     },

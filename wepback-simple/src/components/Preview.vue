@@ -64,6 +64,9 @@
             closeClipboard() {
                 this.selectedIndex = null;
                 this.visible = false;
+            },
+            clearData() {
+                this.loadedImage = [];
             }
         }
     }
