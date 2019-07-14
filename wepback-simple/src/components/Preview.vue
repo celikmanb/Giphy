@@ -6,7 +6,9 @@
                      @mouseleave="closeClipboard"
                 >
                     <VueLoadImage class="vue_load">
-                        <img class="loaded_image" slot="image" :src="gif.images.fixed_height.url">
+                        <img class="loaded_image" slot="image"
+                             :src="gif.images.fixed_height.url"
+                             :class="{'hover_image':visible && selectedIndex === index}">
                         <img class="pre_image" slot="preloader" src="../assets/image-loader.gif"/>
                     </VueLoadImage>
 
@@ -71,9 +73,12 @@
     .vue_load:hover > .loaded_image {
         opacity: 0.4;
     }
-    .shared:hover > .loaded_image {
+    .hover_image {
         opacity: 0.4;
     }
+    /*.shared:hover > .vue_load {
+        opacity: 0.4;
+    }*/
     .copied {
         width: 80px;
         height: 30px;
