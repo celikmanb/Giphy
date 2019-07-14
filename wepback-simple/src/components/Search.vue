@@ -26,7 +26,7 @@
         padding: 10px 20px;
         border: 1px solid #ccc;
         border-radius: 5px;
-        width: 400px;
+        width: 900px;
     }
     button {
         padding: 5px 15px;
