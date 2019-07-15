@@ -30,7 +30,7 @@ export default {
               .then((res) => { return res.json() } )
               .then((res) => {
                 this.gifs = res.data;
-                this.$refs.gifPreview.clearData();
+                this.$refs.gifPreview.clearLoaded();
                 this.isLoading = false;
               } )
     },

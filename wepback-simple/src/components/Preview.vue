@@ -2,7 +2,11 @@
     <div>
         <ul>
             <li v-for="(gif, index) in gifs">
-                <div @mouseover="showClipboard(index)"
+                <Card :gif="gif" :index="index" ref="clearList">
+
+                </Card>
+
+                <!--<div @mouseover="showClipboard(index)"
                      @mouseleave="closeClipboard"
                 >
                     <VueLoadImage class="vue_load" @onLoad="handleHover(index)">
@@ -20,7 +24,7 @@
                         >
                         </whats-app>
                     </div>
-                </div>
+                </div>-->
 
 
             </li>
@@ -29,50 +33,31 @@
 </template>
 
 <script>
-    import { WhatsApp } from 'vue-socialmedia-share';
-    import VueLoadImage from 'vue-load-image'
+    import Card from './Card';
 
     export default {
         name: "Preview",
-        props: [ 'gifs', 'clearLoaded' ],
+        props: [ 'gifs' ],
         components: {
-            WhatsApp,
-            VueLoadImage
+            Card,
         },
         data () {
             return {
-                visible: false,
-                selectedIndex: null,
                 loadedImage:[]
             }
         },
-        watch: {
+        methods: {
             clearLoaded(value) {
                 if (value) {
-                    this.loadedImage = [];
+                    this.$refs.clearList.clearData();
                 }
             }
         },
-        methods: {
-            handleHover(data) {
-               this.loadedImage.push(data);
-            },
-            showClipboard(index) {
-                this.selectedIndex = index;
-                this.visible = true;
-            },
-            closeClipboard() {
-                this.selectedIndex = null;
-                this.visible = false;
-            },
-            clearData() {
-                this.loadedImage = [];
-            }
-        }
+
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     li {
         list-style:none;
         float: left;
