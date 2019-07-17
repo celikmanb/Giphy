@@ -5,28 +5,6 @@
                 <Card :gif="gif" :index="index" ref="clearList">
 
                 </Card>
-
-                <!--<div @mouseover="showClipboard(index)"
-                     @mouseleave="closeClipboard"
-                >
-                    <VueLoadImage class="vue_load" @onLoad="handleHover(index)">
-                        <img class="loaded_image" slot="image"
-                             :src="gif.images.fixed_height.url"
-                             :class="{'hover_image':visible && selectedIndex === index}">
-                        <img class="pre_image" slot="preloader" src="../assets/image-loader.gif"/>
-                    </VueLoadImage>
-
-                    <div v-if="visible && selectedIndex === index && loadedImage.includes(index)" class="shared">
-                        <button v-clipboard="gif.images.fixed_height.url" class="copied">Copy</button>
-                        <whats-app :url="gif.images.fixed_height.url"
-                                   title="Gipyh image"
-                                   scale="2"
-                        >
-                        </whats-app>
-                    </div>
-                </div>-->
-
-
             </li>
         </ul>
     </div>
