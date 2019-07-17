@@ -2,63 +2,40 @@
     <div>
         <ul>
             <li v-for="(gif, index) in gifs">
-                <div @mouseover="showClipboard(index)"
-                     @mouseleave="closeClipboard"
-                >
-                    <VueLoadImage class="vue_load">
-                        <img class="loaded_image" slot="image" :src="gif.images.fixed_height.url">
-                        <img class="pre_image" slot="preloader" src="../assets/image-loader.gif"/>
-                    </VueLoadImage>
+                <Card :gif="gif" :index="index" ref="clearList">
 
-                    <div v-if="visible && selectedIndex === index" class="shared">
-                        <button v-clipboard="gif.images.fixed_height.url" class="copied">Copy</button>
-                        <whats-app :url="gif.images.fixed_height.url"
-                                   title="Gipyh image"
-                                   scale="2"
-                        >
-                        </whats-app>
-                    </div>
-
-                </div>
-
-
+                </Card>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-    import { WhatsApp } from 'vue-socialmedia-share';
-    import VueLoadImage from 'vue-load-image'
+    import Card from './Card';
 
     export default {
         name: "Preview",
         props: [ 'gifs' ],
         components: {
-            WhatsApp,
-            VueLoadImage
+            Card,
         },
         data () {
             return {
-                visible: false,
-                selectedIndex: null,
-                hover: false
+                loadedImage:[]
             }
         },
         methods: {
-            showClipboard(index) {
-                this.selectedIndex = index;
-                this.visible = true;
-            },
-            closeClipboard() {
-                this.selectedIndex = null;
-                this.visible = false;
+            clearLoaded(value) {
+                if (value) {
+                    this.$refs.clearList.clearData();
+                }
             }
-        }
+        },
+
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     li {
         list-style:none;
         float: left;
@@ -71,7 +48,7 @@
     .vue_load:hover > .loaded_image {
         opacity: 0.4;
     }
-    .shared:hover > .loaded_image {
+    .hover_image {
         opacity: 0.4;
     }
     .copied {
@@ -81,6 +58,7 @@
         color: white;
         background-color: #17a2b8;
         border: 1px solid transparent;
+        margin-right: 12px;
     }
     img {
         display: flex;
@@ -92,16 +70,6 @@
         align-items: center;
         top: 40%;
         right: 30%;
-
-        /*&:hover:has(> img.hover) {
-            opacity: 0.4;
-        }*/
-
-        /*&::after {
-            img:hover {
-                opacity: 0.4;
-            }
-        }*/
 
     }
 

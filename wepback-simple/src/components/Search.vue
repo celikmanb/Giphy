@@ -22,6 +22,10 @@
 </script>
 
 <style scoped>
+    .search {
+        display: flex;
+        justify-content: center;
+    }
     input {
         padding: 10px 20px;
         border: 1px solid #ccc;
